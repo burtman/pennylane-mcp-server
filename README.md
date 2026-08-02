@@ -1,39 +1,77 @@
-<p align="center">
-  <h1 align="center">🧾 Pennylane MCP Server</h1>
-  <p align="center">
-    Serveur MCP (Model Context Protocol) complet pour l'API comptable <strong>Pennylane V2</strong>
-    <br />
-    Conçu pour les <strong>experts-comptables</strong> et cabinets comptables
-    <br /><br />
-    <a href="#installation">Installation</a> •
-    <a href="#configuration">Configuration</a> •
-    <a href="#fonctionnalités">Fonctionnalités</a> •
-    <a href="#utilisation">Utilisation</a>
-  </p>
-</p>
+# 🧾 Pennylane MCP Server
+
+**⚠️ DISCLAIMER IMPORTANT** — Ce projet est une implémentation personnelle et éducative **non-officielle** du protocole MCP pour Pennylane. Ce n'est pas un produit Pennylane, ni approuvé ou maintenu par Pennylane.
+
+- **Lien officiel** : Pour l'intégration officielle Pennylane, consultez [https://www.pennylane.com](https://www.pennylane.com)
+- **Statut** : Projet éducatif à titre personnel
+- **Licence** : MIT
+
+---
+
+## À propos
+
+Serveur MCP (Model Context Protocol) conçu à des fins éducatives pour exposer l'API comptable **Pennylane V2** sous forme d'outils utilisables par des LLM compatibles (Claude, GPT, Mistral, etc.).
+
+[Installation](#installation) • [Configuration](#configuration) • [Fonctionnalités](#fonctionnalités) • [Utilisation](#utilisation)
+
+---
+
+## ⚖️ Avertissement Légal
+
+### Statut du projet
+
+Ce projet est :
+- ✅ **Éducatif** — Créé pour apprendre et explorer le protocole MCP
+- ✅ **Personnel** — Développement indépendant sans but commercial
+- ✅ **Non-officiel** — Aucune affiliation avec Pennylane SAS
+- ❌ **Non commercialisé** — N'utiliser que pour usage personnel/interne
+- ❌ **Non soutenu par Pennylane** — Aucun support officiel
+
+### Conditions d'utilisation
+
+Cet outil est fourni **tel quel** (as-is) sans garantie. L'utilisateur est seul responsable de :
+
+1. **Conformité légale** — Respecter les conditions d'utilisation de l'API Pennylane
+2. **Sécurité** — Protéger les tokens API et les données comptables confidentielles
+3. **Validation** — Vérifier les opérations (écritures, factures, lettrage) avant toute production
+4. **Responsabilité** — Assumer l'entière responsabilité des impacts sur vos données comptables
+
+### Relation avec Pennylane
+
+- Ce projet utilise l'API publique de Pennylane dans le respect de leurs conditions d'utilisation
+- Les droits d'auteur et les marques commerciales **Pennylane** appartiennent à Pennylane SAS
+- Aucun code interne, aucun secret commercial, aucune propriété intellectuelle Pennylane n'a été utilisé
+- Ce projet est fourni à titre éducatif et n'a pas vocation à concurrencer les services Pennylane
+
+### Acceptation des risques
+
+En utilisant ce projet, vous acceptez :
+- Les risques liés à une implémentation non-officielle
+- L'absence de support, de maintenance, ou de garantie
+- Que Pennylane ne soit en aucun cas responsable des dysfonctionnements ou pertes de données
 
 ---
 
 ## Présentation
 
-**Pennylane MCP Server** expose l'API Pennylane V2 sous forme de **87 outils MCP** utilisables par n'importe quel LLM compatible (Claude, GPT, Mistral, etc.).
+**Pennylane MCP Server** expose une sélection de l'API Pennylane V2 sous forme d'**87 outils MCP** utilisables par n'importe quel LLM compatible.
 
-Il permet aux experts-comptables d'automatiser leurs opérations quotidiennes via un assistant IA : consultation du plan comptable, saisie d'écritures, lettrage, balance générale, gestion des factures, devis, et bien plus.
+Il permet d'automatiser des opérations comptables répétitives : consultation du plan comptable, saisie d'écritures, lettrage, balance générale, gestion des factures, devis, et plus.
 
-**Support multi-dossiers** : gérez plusieurs dossiers comptables simultanément, basculez entre clients à la volée, et interrogez plusieurs dossiers en parallèle.
+**Support multi-dossiers** : Gérez plusieurs dossiers comptables simultanément et basculez entre clients à la volée.
 
 ### Pourquoi ce projet ?
 
-Les experts-comptables passent un temps considérable sur des tâches répétitives dans Pennylane. Ce serveur MCP permet de :
+Les experts-comptables passent un temps considérable sur des tâches répétitives. Ce serveur MCP permet de :
 
-- **Gagner du temps** en automatisant la saisie, la consultation et le lettrage via le langage naturel
+- **Gagner du temps** en automatisant la saisie et la consultation via le langage naturel
 - **Gérer un portefeuille clients** en basculant entre dossiers sans changer d'outil
-- **Fiabiliser les opérations** grâce à une validation stricte des données (Pydantic v2)
-- **Consolider les données** en interrogeant plusieurs dossiers en parallèle
+- **Fiabiliser** grâce à une validation stricte des données (Pydantic v2)
+- **Consolider** les données en interrogeant plusieurs dossiers en parallèle
 
 ### Qu'est-ce que MCP ?
 
-Le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) est un protocole ouvert qui permet aux modèles de langage (LLM) d'interagir avec des outils et des sources de données externes de manière standardisée. Ce serveur implémente le protocole MCP pour exposer les fonctionnalités de Pennylane à n'importe quel client LLM compatible.
+Le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) est un protocole ouvert qui permet aux modèles de langage d'interagir avec des outils et des sources de données externes de manière standardisée.
 
 ---
 
@@ -65,7 +103,7 @@ Le [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) est un proto
 
 ```bash
 # 1. Clonez le dépôt
-git clone https://github.com/melvynx/pennylane-mcp-server.git
+git clone https://github.com/melvynBuilds/pennylane-mcp-server.git
 cd pennylane-mcp-server
 
 # 2. (Recommandé) Créez un environnement virtuel
@@ -135,10 +173,10 @@ Le serveur peut démarrer sans token ni fichier de configuration. Il attendra l'
 
 ### Variables d'environnement
 
-| Variable | Requis | Description |
-|----------|--------|-------------|
-| `PENNYLANE_API_TOKEN` | Non* | Token Bearer (mode mono-dossier) |
-| `PENNYLANE_CONFIG_PATH` | Non | Chemin vers `dossiers.json` (défaut : `./dossiers.json`) |
+| Variable                | Requis | Description                                              |
+| ----------------------- | ------ | -------------------------------------------------------- |
+| `PENNYLANE_API_TOKEN`   | Non\*  | Token Bearer (mode mono-dossier)                         |
+| `PENNYLANE_CONFIG_PATH` | Non    | Chemin vers `dossiers.json` (défaut : `./dossiers.json`) |
 
 \* Requis uniquement si pas de `dossiers.json`.
 
@@ -235,112 +273,112 @@ Une fois le serveur connecté à votre LLM, vous pouvez interagir en langage nat
 
 ### Gestion multi-dossiers
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_dossiers` | Lister tous les dossiers configurés (tokens masqués) |
-| `pennylane_current_dossier` | Afficher le dossier actif + vérification connexion |
-| `pennylane_switch_dossier` | Basculer vers un autre dossier client |
-| `pennylane_add_dossier` | Ajouter un dossier (avec validation du token) |
-| `pennylane_remove_dossier` | Supprimer un dossier de la configuration |
-| `pennylane_multi_dossier_query` | Requête parallèle sur plusieurs dossiers |
+| Outil                           | Description                                          |
+| ------------------------------- | ---------------------------------------------------- |
+| `pennylane_list_dossiers`       | Lister tous les dossiers configurés (tokens masqués) |
+| `pennylane_current_dossier`     | Afficher le dossier actif + vérification connexion   |
+| `pennylane_switch_dossier`      | Basculer vers un autre dossier client                |
+| `pennylane_add_dossier`         | Ajouter un dossier (avec validation du token)        |
+| `pennylane_remove_dossier`      | Supprimer un dossier de la configuration             |
+| `pennylane_multi_dossier_query` | Requête parallèle sur plusieurs dossiers             |
 
 ### Plan comptable
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_accounts` | Rechercher/lister les comptes (préfixes : 411=clients, 401=fournisseurs, 512=banque) |
-| `pennylane_get_account` | Détail d'un compte |
-| `pennylane_create_account` | Créer un compte (auto-création client/fournisseur si 411/401) |
-| `pennylane_update_account` | Modifier libellé ou lettrage |
+| Outil                      | Description                                                                          |
+| -------------------------- | ------------------------------------------------------------------------------------ |
+| `pennylane_list_accounts`  | Rechercher/lister les comptes (préfixes : 411=clients, 401=fournisseurs, 512=banque) |
+| `pennylane_get_account`    | Détail d'un compte                                                                   |
+| `pennylane_create_account` | Créer un compte (auto-création client/fournisseur si 411/401)                        |
+| `pennylane_update_account` | Modifier libellé ou lettrage                                                         |
 
 ### Journaux comptables
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_journals` | Lister les journaux (ventes, achats, banque, OD, paie) |
-| `pennylane_get_journal` | Détail d'un journal |
-| `pennylane_create_journal` | Créer un journal (codes : VE, HA, BQ, OD, PA, RB) |
+| Outil                      | Description                                            |
+| -------------------------- | ------------------------------------------------------ |
+| `pennylane_list_journals`  | Lister les journaux (ventes, achats, banque, OD, paie) |
+| `pennylane_get_journal`    | Détail d'un journal                                    |
+| `pennylane_create_journal` | Créer un journal (codes : VE, HA, BQ, OD, PA, RB)      |
 
 ### Écritures comptables
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_entries` | Lister les écritures (filtres journal, période) |
-| `pennylane_get_entry` | Détail complet d'une écriture avec ses lignes |
-| `pennylane_create_entry` | Passer une écriture équilibrée (débit = crédit) |
-| `pennylane_update_entry` | Modifier une écriture (en-tête + lignes) |
-| `pennylane_list_entry_lines` | Lignes d'une écriture spécifique |
+| Outil                        | Description                                     |
+| ---------------------------- | ----------------------------------------------- |
+| `pennylane_list_entries`     | Lister les écritures (filtres journal, période) |
+| `pennylane_get_entry`        | Détail complet d'une écriture avec ses lignes   |
+| `pennylane_create_entry`     | Passer une écriture équilibrée (débit = crédit) |
+| `pennylane_update_entry`     | Modifier une écriture (en-tête + lignes)        |
+| `pennylane_list_entry_lines` | Lignes d'une écriture spécifique                |
 
 ### Lignes d'écriture et lettrage
 
-| Outil | Description |
-|-------|-------------|
+| Outil                            | Description                                          |
+| -------------------------------- | ---------------------------------------------------- |
 | `pennylane_list_all_entry_lines` | Rechercher des lignes (par compte, journal, période) |
-| `pennylane_get_entry_line` | Détail d'une ligne |
-| `pennylane_letter_lines` | Lettrer (rapprocher factures et règlements) |
-| `pennylane_unletter_lines` | Délettrer |
-| `pennylane_link_categories` | Ventilation analytique (catégories avec poids) |
-| `pennylane_list_line_categories` | Catégories analytiques d'une ligne |
-| `pennylane_list_lettered_lines` | Lignes rapprochées ensemble |
+| `pennylane_get_entry_line`       | Détail d'une ligne                                   |
+| `pennylane_letter_lines`         | Lettrer (rapprocher factures et règlements)          |
+| `pennylane_unletter_lines`       | Délettrer                                            |
+| `pennylane_link_categories`      | Ventilation analytique (catégories avec poids)       |
+| `pennylane_list_line_categories` | Catégories analytiques d'une ligne                   |
+| `pennylane_list_lettered_lines`  | Lignes rapprochées ensemble                          |
 
 ### Clients et fournisseurs
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_customers` | Lister les clients |
-| `pennylane_get_customer` | Détail d'un client |
-| `pennylane_create_company_customer` | Créer un client entreprise |
+| Outil                                  | Description                 |
+| -------------------------------------- | --------------------------- |
+| `pennylane_list_customers`             | Lister les clients          |
+| `pennylane_get_customer`               | Détail d'un client          |
+| `pennylane_create_company_customer`    | Créer un client entreprise  |
 | `pennylane_create_individual_customer` | Créer un client particulier |
-| `pennylane_list_suppliers` | Lister les fournisseurs |
-| `pennylane_get_supplier` | Détail d'un fournisseur |
-| `pennylane_create_supplier` | Créer un fournisseur |
+| `pennylane_list_suppliers`             | Lister les fournisseurs     |
+| `pennylane_get_supplier`               | Détail d'un fournisseur     |
+| `pennylane_create_supplier`            | Créer un fournisseur        |
 
 ### Factures
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_customer_invoices` | Lister les factures clients |
-| `pennylane_get_customer_invoice` | Détail d'une facture client |
-| `pennylane_create_customer_invoice` | Créer une facture client |
-| `pennylane_finalize_customer_invoice` | Finaliser un brouillon |
-| `pennylane_list_supplier_invoices` | Lister les factures fournisseurs |
-| `pennylane_get_supplier_invoice` | Détail d'une facture fournisseur |
+| Outil                                 | Description                      |
+| ------------------------------------- | -------------------------------- |
+| `pennylane_list_customer_invoices`    | Lister les factures clients      |
+| `pennylane_get_customer_invoice`      | Détail d'une facture client      |
+| `pennylane_create_customer_invoice`   | Créer une facture client         |
+| `pennylane_finalize_customer_invoice` | Finaliser un brouillon           |
+| `pennylane_list_supplier_invoices`    | Lister les factures fournisseurs |
+| `pennylane_get_supplier_invoice`      | Détail d'une facture fournisseur |
 
 ### Devis et abonnements
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_list_quotes` | Lister les devis |
-| `pennylane_get_quote` | Détail d'un devis |
-| `pennylane_create_quote` | Créer un devis |
+| Outil                                  | Description            |
+| -------------------------------------- | ---------------------- |
+| `pennylane_list_quotes`                | Lister les devis       |
+| `pennylane_get_quote`                  | Détail d'un devis      |
+| `pennylane_create_quote`               | Créer un devis         |
 | `pennylane_list_billing_subscriptions` | Lister les abonnements |
 
 ### Balance, exercices et exports
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_get_trial_balance` | Balance générale par période |
-| `pennylane_list_fiscal_years` | Exercices fiscaux et leur statut |
+| Outil                         | Description                                        |
+| ----------------------------- | -------------------------------------------------- |
+| `pennylane_get_trial_balance` | Balance générale par période                       |
+| `pennylane_list_fiscal_years` | Exercices fiscaux et leur statut                   |
 | `pennylane_create_fec_export` | Exporter le FEC (Fichier des Écritures Comptables) |
-| `pennylane_create_agl_export` | Exporter le Grand Livre Analytique |
+| `pennylane_create_agl_export` | Exporter le Grand Livre Analytique                 |
 
 ### Suivi des modifications (Changelogs)
 
-| Outil | Description |
-|-------|-------------|
-| `pennylane_changelog_customers` | Historique des modifications clients |
-| `pennylane_changelog_suppliers` | Historique des modifications fournisseurs |
-| `pennylane_changelog_products` | Historique des modifications produits |
-| `pennylane_changelog_customer_invoices` | Historique des modifications factures clients |
-| `pennylane_changelog_supplier_invoices` | Historique des modifications factures fournisseurs |
-| `pennylane_changelog_quotes` | Historique des modifications devis |
-| `pennylane_changelog_entry_lines` | Historique des modifications lignes d'écriture |
-| `pennylane_changelog_transactions` | Historique des modifications transactions bancaires |
+| Outil                                   | Description                                         |
+| --------------------------------------- | --------------------------------------------------- |
+| `pennylane_changelog_customers`         | Historique des modifications clients                |
+| `pennylane_changelog_suppliers`         | Historique des modifications fournisseurs           |
+| `pennylane_changelog_products`          | Historique des modifications produits               |
+| `pennylane_changelog_customer_invoices` | Historique des modifications factures clients       |
+| `pennylane_changelog_supplier_invoices` | Historique des modifications factures fournisseurs  |
+| `pennylane_changelog_quotes`            | Historique des modifications devis                  |
+| `pennylane_changelog_entry_lines`       | Historique des modifications lignes d'écriture      |
+| `pennylane_changelog_transactions`      | Historique des modifications transactions bancaires |
 
 ### Utilitaires
 
-| Outil | Description |
-|-------|-------------|
+| Outil              | Description                                       |
+| ------------------ | ------------------------------------------------- |
 | `pennylane_whoami` | Vérifier la connexion et les informations société |
 
 ---
@@ -381,17 +419,18 @@ pennylane-mcp-server/
         ├── exports.py          # Exports FEC / AGL
         ├── changelogs.py       # Journaux de modifications
         └── dossiers.py         # Multi-dossiers
+
 ```
 
 ---
 
 ## Stack technique
 
-| Technologie | Rôle |
-|-------------|------|
-| [FastMCP](https://github.com/modelcontextprotocol/python-sdk) | Framework MCP Python officiel |
-| [httpx](https://www.python-httpx.org/) | Client HTTP asynchrone |
-| [Pydantic v2](https://docs.pydantic.dev/) | Validation stricte des entrées |
+| Technologie                                                   | Rôle                           |
+| ------------------------------------------------------------- | ------------------------------ |
+| [FastMCP](https://github.com/modelcontextprotocol/python-sdk) | Framework MCP Python officiel  |
+| [httpx](https://www.python-httpx.org/)                        | Client HTTP asynchrone         |
+| [Pydantic v2](https://docs.pydantic.dev/)                     | Validation stricte des entrées |
 
 ---
 
@@ -425,10 +464,22 @@ mcp dev src/pennylane_mcp/server.py
 
 ## Licence
 
-Ce projet est sous licence [MIT](LICENSE).
+Ce projet est sous licence [MIT](https://github.com/melvynBuilds/pennylane-mcp-server/blob/main/LICENSE).
+
+Cela signifie qu'il peut être utilisé librement à titre éducatif et personnel, sous réserve du respect des conditions d'utilisation de Pennylane.
+
+---
+
+## Support & Ressources
+
+- **Protocole MCP** : https://modelcontextprotocol.io/
+- **API Pennylane** : https://www.pennylane.com
+- **Issues** : [Dépôt GitHub](https://github.com/melvynBuilds/pennylane-mcp-server/issues)
 
 ---
 
 ## Auteur
 
-Développé par **Melvyn Morice** — Expert-comptable mémorialiste passionné par l'IA et l'automatisation.
+Développé par **Melvyn Morice** — Développeur passionné par l'IA, l'automatisation et la comptabilité.
+
+**Note** : Ce projet est maintenu à titre personnel et éducatif. Il n'est affilié à Pennylane SAS d'aucune manière.
