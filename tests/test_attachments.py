@@ -28,11 +28,11 @@ async def main():
 
     # 1. requête multipart bien formée
     res = await api.api_post_multipart(
-        "/ledger_attachments",
+        "/file_attachments",
         files={"file": ("facture.pdf", b"%PDF-1.4 fake", "application/pdf")},
     )
     t1 = res == {"id": 4242, "filename": "facture.pdf"}
-    t2 = captured["url"].endswith("/ledger_attachments")
+    t2 = captured["url"].endswith("/file_attachments")
     t3 = captured["ct"].startswith("multipart/form-data; boundary=")
     t4 = captured["auth"] == "Bearer TEST_TOKEN"
     t5 = b"facture.pdf" in captured["body"] and b"%PDF-1.4 fake" in captured["body"]

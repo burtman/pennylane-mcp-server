@@ -374,6 +374,11 @@ Une fois le serveur connecté à votre LLM, vous pouvez interagir en langage nat
 > pas inclus dans un token en lecture seule : il faut les cocher explicitement
 > à la création du token dans Pennylane.
 >
+> ⚠️ **Endpoint** : la documentation mentionne `/ledger_attachments`, mais cet
+> endpoint exige le scope `ledger` que les tokens Company API ne portent pas
+> (403). C'est `POST /file_attachments` qui fonctionne — vérifié en conditions
+> réelles le 20/09/2026, réponse 201 avec `{id, filename, url}`.
+>
 > Formats acceptés : PDF, PNG, JPG, GIF, TIFF, HEIC — 20 Mo maximum.
 > Le fichier est déposé sans être rattaché à une écriture ; le rapprochement
 > se fait ensuite dans Pennylane.

@@ -1,7 +1,12 @@
 """Outils MCP : pièces jointes comptables (justificatifs).
 
-Couvre les deux endpoints ``/ledger_attachments`` de l'API Pennylane V2 :
+Couvre les deux endpoints ``/file_attachments`` de l'API Pennylane V2 :
 dépôt d'un fichier et récupération de ses métadonnées.
+
+⚠️ La documentation publique mentionne ``/ledger_attachments`` : cet endpoint
+existe mais exige le scope ``ledger``, que les tokens Company API ne portent
+pas. C'est ``POST /file_attachments`` qui répond 201 avec ``file_attachments:all``
+(vérifié en conditions réelles le 20/09/2026).
 
 ⚠️ Scopes requis côté token Pennylane :
 - ``file_attachments:all`` pour l'upload,
@@ -61,7 +66,7 @@ def register(mcp: FastMCP) -> None:
             ),
         ] = "file",
     ) -> str:
-        """Dépose un justificatif dans le dossier comptable (POST /ledger_attachments).
+        """Dépose un justificatif dans le dossier comptable (POST /file_attachments).
 
         Le fichier est envoyé en multipart/form-data. Le justificatif est créé
         sans être rattaché à une écriture : le rapprochement se fait ensuite
@@ -95,7 +100,7 @@ def register(mcp: FastMCP) -> None:
             content = path.read_bytes()
 
             data = await api_post_multipart(
-                "/ledger_attachments",
+                "/file_attachments",
                 files={field_name: (path.name, content, mime)},
                 dossier_slug=dossier_slug,
             )
@@ -126,7 +131,7 @@ def register(mcp: FastMCP) -> None:
             Field(description="Slug du dossier cible. Défaut : dossier actif."),
         ] = None,
     ) -> str:
-        """Récupère les métadonnées d'un justificatif (GET /ledger_attachments/{id}).
+        """Récupère les métadonnées d'un justificatif (GET /file_attachments/{id}).
 
         Retourne notamment le nom du fichier et son URL de téléchargement.
 
@@ -134,7 +139,7 @@ def register(mcp: FastMCP) -> None:
         """
         try:
             data = await api_get(
-                f"/ledger_attachments/{id}",
+                f"/file_attachments/{id}",
                 dossier_slug=dossier_slug,
             )
             return to_json(data)
