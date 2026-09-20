@@ -177,6 +177,68 @@ async def api_delete(
         ) from exc
 
 
+# ─── POST multipart (upload de fichiers) ─────────────────────────────────────
+
+
+async def api_post_multipart(
+    endpoint: str,
+    files: dict[str, tuple[str, bytes, str]],
+    data: Optional[dict[str, Any]] = None,
+    *,
+    dossier_slug: Optional[str] = None,
+) -> Any:
+    """POST multipart/form-data vers l'API Pennylane (upload de fichier).
+
+    Subtilité httpx : le client partagé porte un en-tête par défaut
+    ``Content-Type: application/json`` qui **écrase** celui calculé par
+    l'encodeur multipart lors d'un ``client.post(..., files=...)``. La requête
+    partirait alors annoncée en JSON avec un corps multipart, et l'API la
+    rejetterait. On construit donc la requête à la main, sans l'en-tête JSON,
+    pour laisser httpx poser lui-même ``multipart/form-data`` et sa boundary —
+    puis on l'envoie via le client résolu, ce qui préserve son transport et
+    sa configuration.
+
+    Args:
+        endpoint: Chemin API (ex: '/ledger_attachments').
+        files: dict nom_de_champ → (nom_fichier, contenu, type_mime).
+        data: Champs de formulaire additionnels (optionnel).
+        dossier_slug: Slug du dossier cible (optionnel, défaut: dossier actif).
+    """
+    try:
+        client = await _resolve_client(dossier_slug)
+        headers = {
+            k: v
+            for k, v in client.headers.items()
+            if k.lower() != "content-type"
+        }
+        url = f"{str(client.base_url).rstrip('/')}/{endpoint.lstrip('/')}"
+        request = httpx.Request(
+            "POST", url, headers=headers, files=files, data=data or {}
+        )
+        resp = await client.send(request)
+        resp.raise_for_status()
+        if resp.status_code == 204 or not resp.content:
+            return {}
+        return resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise _format_error(exc, dossier_slug) from exc
+    except httpx.TimeoutException as exc:
+        raise RuntimeError(
+            _prefix_dossier(
+                "Timeout : l'upload vers Pennylane a expiré. "
+                "Réessayez ou réduisez la taille du fichier.",
+                dossier_slug,
+            )
+        ) from exc
+    except httpx.ConnectError as exc:
+        raise RuntimeError(
+            _prefix_dossier(
+                "Connexion refusée : impossible de joindre l'API Pennylane.",
+                dossier_slug,
+            )
+        ) from exc
+
+
 # ─── Requête parallèle multi-dossiers ────────────────────────────────────────
 
 

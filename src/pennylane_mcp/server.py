@@ -52,6 +52,7 @@ from .constants import SERVER_NAME, SERVER_VERSION
 from .dossier_manager import DossierManager, set_manager
 from .tools import (
     accounts,
+    attachments,
     billing_subscriptions,
     categories,
     changelogs,
@@ -217,6 +218,7 @@ categories.register(mcp)
 exports.register(mcp)
 billing_subscriptions.register(mcp)
 changelogs.register(mcp)
+attachments.register(mcp)  # Justificatifs (ledger_attachments)
 dossiers.register(mcp)  # Outils multi-dossiers (v2.0)
 
 

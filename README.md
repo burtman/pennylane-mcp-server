@@ -54,7 +54,7 @@ En utilisant ce projet, vous acceptez :
 
 ## Présentation
 
-**Pennylane MCP Server** expose une sélection de l'API Pennylane V2 sous forme d'**87 outils MCP** utilisables par n'importe quel LLM compatible.
+**Pennylane MCP Server** expose une sélection de l'API Pennylane V2 sous forme d'**89 outils MCP** utilisables par n'importe quel LLM compatible.
 
 Il permet d'automatiser des opérations comptables répétitives : consultation du plan comptable, saisie d'écritures, lettrage, balance générale, gestion des factures, devis, et plus.
 
@@ -361,6 +361,22 @@ Une fois le serveur connecté à votre LLM, vous pouvez interagir en langage nat
 | `pennylane_list_fiscal_years` | Exercices fiscaux et leur statut                   |
 | `pennylane_create_fec_export` | Exporter le FEC (Fichier des Écritures Comptables) |
 | `pennylane_create_agl_export` | Exporter le Grand Livre Analytique                 |
+
+### Justificatifs (pièces jointes)
+
+| Outil                           | Description                                         |
+| ------------------------------- | --------------------------------------------------- |
+| `pennylane_upload_attachment`   | Déposer un justificatif (PDF ou image)              |
+| `pennylane_get_attachment`      | Récupérer les métadonnées d'un justificatif         |
+
+> **Scopes requis** : `file_attachments:all` pour le dépôt,
+> `file_attachments:readonly` (ou `:all`) pour la lecture. Ces scopes ne sont
+> pas inclus dans un token en lecture seule : il faut les cocher explicitement
+> à la création du token dans Pennylane.
+>
+> Formats acceptés : PDF, PNG, JPG, GIF, TIFF, HEIC — 20 Mo maximum.
+> Le fichier est déposé sans être rattaché à une écriture ; le rapprochement
+> se fait ensuite dans Pennylane.
 
 ### Suivi des modifications (Changelogs)
 

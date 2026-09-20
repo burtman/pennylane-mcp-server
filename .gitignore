@@ -24,3 +24,6 @@ env/
 
 # Configuration sensible (contient des tokens API)
 dossiers.json
+
+# Config locale avec tokens (variante singulier)
+dossier.json
